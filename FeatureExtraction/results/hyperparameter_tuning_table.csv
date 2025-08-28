@@ -1,0 +1,6 @@
+Rank,Model,Best_F1,Best_AUC,Best_Precision,Best_Recall,Optimal_Parameters,Training_Time,Inference_Time
+1,Autoencoder,0.9904,0.9907,0.9978,0.9830,"epochs=50, latent_dim=8, dropout_rate=0.0",3.693s,0.0040s
+2,LOF,0.9896,0.9906,0.9962,0.9830,"n_neighbors=20, contamination=0.1",0.100s,0.1345s
+3,EllipticEnvelope,0.9883,0.9914,0.9930,0.9836,"support_fraction=0.8, contamination=0.1",0.176s,0.0010s
+4,IsolationForest,0.9883,0.9777,0.9930,0.9836,"n_estimators=100, max_samples=0.8, contamination=0.1",0.191s,0.0293s
+5,OneClassSVM,0.9883,0.9904,0.9946,0.9820,"nu=0.05, kernel=rbf, gamma=scale",0.077s,0.0570s

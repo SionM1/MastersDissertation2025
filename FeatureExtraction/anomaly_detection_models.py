@@ -15,6 +15,7 @@ from sklearn.svm import OneClassSVM
 from sklearn.neighbors import LocalOutlierFactor
 from sklearn.cluster import DBSCAN
 from sklearn.covariance import EllipticEnvelope
+from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import RobustScaler
 from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
 import matplotlib.pyplot as plt
@@ -423,6 +424,38 @@ class AnomalyDetectionEvaluator:
             print(f"   {model_name} saved to {filename}")
         
         print("   All models saved successfully")
+    
+    def train_isolation_forest(self, n_estimators=100, max_samples=0.8, contamination=0.1):
+        """
+        Train Isolation Forest for anomaly detection
+        """
+        print(f"\nTraining Isolation Forest (n_estimators={n_estimators}, contamination={contamination})...")
+        
+        start_time = time.time()
+        
+        # Initialize model
+        model = IsolationForest(
+            n_estimators=n_estimators,
+            max_samples=max_samples,
+            contamination=contamination,
+            random_state=42
+        )
+        
+        # Fit on normal data
+        model.fit(self.X_train_scaled)
+        
+        training_time = time.time() - start_time
+        
+        # Store model
+        self.models['IsolationForest'] = {
+            'model': model,
+            'training_time': training_time,
+            'params': {'n_estimators': n_estimators, 'max_samples': max_samples, 'contamination': contamination}
+        }
+        
+        print(f"   Training completed in {training_time:.2f} seconds")
+        
+        return model
 
 
 def main():
@@ -458,6 +491,9 @@ def main():
     
     # Elliptic Envelope (optimized parameters)
     evaluator.train_elliptic_envelope(contamination=0.1, support_fraction=0.8)
+    
+    # Isolation Forest (optimized parameters from hyperparameter tuning)
+    evaluator.train_isolation_forest(n_estimators=100, max_samples=0.8, contamination=0.1)
     
     # Evaluate models
     print("\nEvaluating Models...")

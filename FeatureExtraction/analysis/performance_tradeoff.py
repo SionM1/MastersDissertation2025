@@ -20,7 +20,7 @@ def create_tradeoff_plot():
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
     
     # Plot 1: Training Time vs F1-Score
-    colors = ['#2E86C1', '#28B463', '#F39C12', '#E74C3C']
+    colors = ['#2E86C1', '#28B463', '#F39C12', '#E74C3C', '#8B4A9C']
     scatter1 = ax1.scatter(df_filtered['Training Time (s)'], df_filtered['F1-Score'], 
                           s=200, alpha=0.7, c=colors[:len(df_filtered)])
     

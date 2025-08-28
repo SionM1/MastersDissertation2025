@@ -11,6 +11,13 @@ import time
 from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
 from sklearn.preprocessing import RobustScaler
 import torch
+import torch.nn as nn
+import sys
+import os
+
+# Add parent directory to path to import Autoencoder class
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from anomaly_detection_models import Autoencoder
 
 def load_trained_models():
     """
@@ -22,7 +29,8 @@ def load_trained_models():
         'LOF': '../models/lof_model.pkl', 
         'Autoencoder': '../models/autoencoder_model.pkl',
         'DBSCAN': '../models/dbscan_model.pkl',
-        'EllipticEnvelope': '../models/ellipticenvelope_model.pkl'
+        'EllipticEnvelope': '../models/ellipticenvelope_model.pkl',
+        'IsolationForest': '../models/isolationforest_model.pkl'
     }
     
     print("Loading trained models...")
